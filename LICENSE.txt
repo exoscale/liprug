@@ -1,4 +1,4 @@
-Copyright (c) 2013 Pierre-Yves Ritschard
+Copyright (c) 2013 Exoscale
 
 MIT License
 
