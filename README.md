@@ -1,7 +1,7 @@
 liprug: simple status board
 ----------------------------
 
-![liprug](http://i.imgur.com/kusLR6U.png)
+![liprug](http://i.imgur.com/nI9l58i.png)
 
 The idea behind liprug is to give you a simple tool
 to communicate your operational status to clients.
