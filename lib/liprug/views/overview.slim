@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    title Status Board
+    link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+  body
+
+    style type="text/css"
+      | .bs-callout {
+      |   margin: 20px 0;
+      |   padding: 15px 30px 15px 15px;
+      |   border-left: 5px solid #eee;
+      | }
+      | .bs-callout h4 { margin-top: 0; }
+      | .bs-callout p:last-child { margin-bottom: 0; }
+      | .bs-callout code, .bs-callout .highlight {background-color: #fff;}
+      | .bs-callout-danger {background-color: #fcf2f2; border-color: #dFb5b4;}
+      | .bs-callout-warning {background-color: #fefbed;  border-color: #f1e7bc;}
+      | .bs-callout-info {background-color: #f0f7fd; border-color: #d0e3f0;}
+      | .bs-callout-success {background-color: #dff0d8; border-color: #d6e9c6;}
+
+    nav.navbar.navbar-default role="navigation"
+      div.navbar-header
+        a.navbar-brand href="/" #{brand[:name]}
+          
+      - if brand[:contact]
+        form.navbar-form.navbar-right
+          a.btn.btn-info.btn-sm href="#{brand[:contact]}" Report issue
+
+    div.row
+      div.col-md-8.col-md-offset-2
+        h2 Services
+
+        table.table.table-bordered.table-striped
+          thead
+            tr
+              th Service
+              th Status
+          tbody
+            - for name,status in services do
+              tr
+                td #{name}
+                td class="#{status[:class]}" #{status[:message]}
+
+        h2 Latest Events
+
+        - for event in events do
+          div class="bs-callout bs-callout-#{event[:class]}"
+            p
+              small
+                i On #{event[:date]}
+              div
+                == RDiscount.new(event[:message]).to_html
+      
