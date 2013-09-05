@@ -27,29 +27,30 @@ html
         form.navbar-form.navbar-right
           a.btn.btn-info.btn-sm href="#{brand[:contact]}" Report issue
 
-    div.row
-      div.col-md-8.col-md-offset-2
-        h2 Services
+    div.container
+      div.row
+        div.col-md-8.col-md-offset-2
+          h2 Services
 
-        table.table.table-bordered.table-striped
-          thead
-            tr
-              th Service
-              th Status
-          tbody
-            - for name in services.keys.sort do
+          table.table.table-bordered.table-striped
+            thead
               tr
-                td #{name}
-                td class="#{services[name][:class]}"
-                  | #{services[name][:message]}
+                th Service
+                th Status
+            tbody
+              - for name in services.keys.sort do
+                tr
+                  td #{name}
+                  td class="#{services[name][:class]}"
+                    | #{services[name][:message]}
 
-        h2 Latest Events
+          h2 Latest Events
 
-        - for event in events do
-          div class="bs-callout bs-callout-#{event[:class]}"
-            p
-              small
-                i On #{event[:date]}
-              div
-                == RDiscount.new(event[:message]).to_html
+            - for event in events do
+              div class="bs-callout bs-callout-#{event[:class]}"
+                p
+                  small
+                    i On #{event[:date]}
+                  div
+                    == RDiscount.new(event[:message]).to_html
       
