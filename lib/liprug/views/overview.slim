@@ -2,6 +2,7 @@ doctype html
 html
   head
     title Status Board
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
     link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
   body
 
@@ -21,11 +22,16 @@ html
 
     nav.navbar.navbar-default role="navigation"
       div.navbar-header
+        button.navbar-toggle data-toggle="collapse" data-target=".navbar-main-collapse"
+          span.sr-only Toggle Navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
         a.navbar-brand href="/" #{brand[:name]}
           
       - if brand[:contact]
-        form.navbar-form.navbar-right
-          a.btn.btn-info.btn-sm href="#{brand[:contact]}" Report issue
+        nav.collapse.navbar-collapse.navbar-main-collapse role="navigation"
+          a.navbar-btn.navbar-right.btn.btn-info.btn-sm href="#{brand[:contact]}" Report issue
 
     div.container
       div.row
@@ -52,4 +58,6 @@ html
                   i On #{event[:date]}
                 div
                   == RDiscount.new(event[:message]).to_html
+    script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+    script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"
       
