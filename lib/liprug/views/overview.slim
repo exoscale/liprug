@@ -15,7 +15,7 @@ html
       | .bs-callout p:last-child { margin-bottom: 0; }
       | .bs-callout code, .bs-callout .highlight {background-color: #fff;}
       | .bs-callout-danger {background-color: #fcf2f2; border-color: #dFb5b4;}
-      | .bs-callout-warning {background-color: #fefbed;  border-color: #f1e7bc;}
+      | .bs-callout-warning {background-color: #fefbed; border-color: #f1e7bc;}
       | .bs-callout-info {background-color: #f0f7fd; border-color: #d0e3f0;}
       | .bs-callout-success {background-color: #dff0d8; border-color: #d6e9c6;}
 
@@ -37,10 +37,11 @@ html
               th Service
               th Status
           tbody
-            - for name,status in services do
+            - for name in services.keys.sort do
               tr
                 td #{name}
-                td class="#{status[:class]}" #{status[:message]}
+                td class="#{services[name][:class]}"
+                  | #{services[name][:message]}
 
         h2 Latest Events
 
