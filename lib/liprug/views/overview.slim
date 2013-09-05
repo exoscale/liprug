@@ -45,12 +45,11 @@ html
                     | #{services[name][:message]}
 
           h2 Latest Events
-
-            - for event in events do
-              div class="bs-callout bs-callout-#{event[:class]}"
-                p
-                  small
-                    i On #{event[:date]}
-                  div
-                    == RDiscount.new(event[:message]).to_html
+          - for event in events do
+            div class="bs-callout bs-callout-#{event[:class]}"
+              p
+                small
+                  i On #{event[:date]}
+                div
+                  == RDiscount.new(event[:message]).to_html
       
