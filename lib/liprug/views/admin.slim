@@ -48,9 +48,10 @@ html
                     button.btn.btn-primary.pull-right id="#{name}"
                       span.glyphicon.glyphicon-trash
                         |  delete
-          h2 Events
 
-          form.form-horizontal role="form" method="POST" action="/api/events"
+          h2 Upcoming Events
+
+          form.form-horizontal role="form" method="POST" action="/api/upcoming"
             div.form-group
               label.col-lg-2.control-label for="class" Status class
               div.col-lg-6
@@ -72,10 +73,42 @@ html
 
           table.table.table-bordered.table-striped
             tbody
-              - for event, index in events.each_with_index do
+              - for event, index in upcoming.each_with_index do
                 tr
                   td #{event[:message]}
-                  td.delete-event
+                  td.delete-upcoming-event
+                    button.btn.btn-primary.pull-right id="#{index}"
+                      span.glyphicon.glyphicon-trash
+                        |  delete
+                          
+          h2 Past Events
+
+          form.form-horizontal role="form" method="POST" action="/api/past"
+            div.form-group
+              label.col-lg-2.control-label for="class" Status class
+              div.col-lg-6
+                div
+                  input type="radio" id="event-class" name="class" value="info" info
+                div
+                  input type="radio" id="event-class" name="class" value="success" success
+                div
+                  input type="radio" id="event-class" name="class" value="danger" danger
+                div
+                  input type="radio" id="event-class" name="class" value="warning" warning
+            div.form-group
+              label.col-lg-2.control-label for="message" Message
+              div.col-lg-6
+                textarea.form-control id="event-message" name="message"
+            div.form-group
+              div.col-lg-offset-2.col-lg-6
+                button.btn.btn-default type="submit" update
+
+          table.table.table-bordered.table-striped
+            tbody
+              - for event, index in past.each_with_index do
+                tr
+                  td #{event[:message]}
+                  td.delete-past-event
                     button.btn.btn-primary.pull-right id="#{index}"
                       span.glyphicon.glyphicon-trash
                         |  delete

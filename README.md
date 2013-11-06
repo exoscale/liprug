@@ -24,6 +24,7 @@ Configuration is done through environment variables, here are the relevant ones:
 * `REDIS_URL` or `REDISTOGO_URL`: url of redis host for storage
 * `LIPRUG_BRAND_HEADER`: text you want shown on the header bar
 * `LIPRUG_BRAND_CONTACT`: if present, a "report issue" button will show up in the bar, with this value as href
+* `LIPRUG_BRAND_SCRIPT`: if present, a script to be inserted in the page, to track analytics for instance
 * `LIPRUG_CREDENTIALS`: colon separated user and password
 
 ### Usage

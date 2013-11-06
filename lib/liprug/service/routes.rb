@@ -32,18 +32,34 @@ module Liprug
       redirect "/admin"
     end
 
-    post '/api/events' do
+    post '/api/past' do
       protected!
-      Liprug::Model.add_event({
-                                :class => params[:class],
-                                :message => params[:message]
-                              })
+      Liprug::Model.add_past_event({
+                                     :class => params[:class],
+                                     :message => params[:message]
+                                   })
       redirect "/admin"
     end
 
-    delete '/api/events/:event' do
+    post '/api/upcoming' do
       protected!
-      Liprug::Model.delete_event params[:event].to_i
+      Liprug::Model.add_upcoming_event({
+                                         :class => params[:class],
+                                         :message => params[:message]
+                                       })
+      redirect "/admin"
+    end
+    
+    delete '/api/past/:event' do
+      protected!
+      Liprug::Model.delete_past_event params[:event].to_i
+
+      redirect "/admin"
+    end
+    
+    delete '/api/upcoming/:event' do
+      protected!
+      Liprug::Model.delete_upcoming_event params[:event].to_i
 
       redirect "/admin"
     end

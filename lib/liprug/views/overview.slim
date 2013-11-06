@@ -20,6 +20,8 @@ html
       | .bs-callout-info {background-color: #f0f7fd; border-color: #d0e3f0;}
       | .bs-callout-success {background-color: #dff0d8; border-color: #d6e9c6;}
 
+    == brand[:script]
+
     nav.navbar.navbar-default role="navigation"
       div.navbar-header
         button.navbar-toggle data-toggle="collapse" data-target=".navbar-main-collapse"
@@ -50,8 +52,16 @@ html
                   td class="#{services[name][:class]}"
                     | #{services[name][:message]}
 
+          h2 Upcoming Events
+          - for event in upcoming do
+            div class="bs-callout bs-callout-#{event[:class]}"
+              p
+                small
+                  i On #{event[:date]}
+                div
+                  == RDiscount.new(event[:message]).to_html
           h2 Latest Events
-          - for event in events do
+          - for event in past do
             div class="bs-callout bs-callout-#{event[:class]}"
               p
                 small

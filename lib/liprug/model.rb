@@ -23,6 +23,7 @@ module Liprug
       services = redis.smembers 'services'
       {
 	:brand => {
+          :script => Liprug::Config['LIPRUG_BRAND_SCRIPT'] || '',
 	  :name => Liprug::Config['LIPRUG_BRAND_HEADER'] || 'status board',
 	  :contact => Liprug::Config['LIPRUG_BRAND_CONTACT']
 	},
@@ -34,17 +35,13 @@ module Liprug
         end.reduce({}) do |e1,e2|
           e1.merge e2
         end,
-        :events => redis.lrange('events', 0, -1).map do |event|
+        :past => redis.lrange('events_past', 0, -1).map do |event|
+          JSON.parse event, :symbolize_names => true
+        end,
+        :upcoming => redis.lrange('events_upcoming', 0, -1).map do |event|
           JSON.parse event, :symbolize_names => true
         end
       }
-    end
-
-    def self.add_event event
-      redis = connect!
-      event[:date] = Time.new.asctime
-      event = event.to_json
-      redis.lpush "events", event
     end
 
     def self.add_status service, status
@@ -53,16 +50,37 @@ module Liprug
       redis.set "service:#{service}", status.to_json
     end
 
-    def self.delete_event index
-      redis = connect!
-      redis.lset "events", index, "XXXXX"
-      redis.lrem "events", 1, "XXXXX"
-    end
-
     def self.delete_service service
       redis = connect!
       redis.srem "services", service
       redis.del "service:#{service}"
     end
+    
+    def self.add_upcoming_event event
+      redis = connect!
+      event[:date] = Time.new.asctime
+      event = event.to_json
+      redis.lpush "events_upcoming", event
+    end
+
+    def self.add_past_event event
+      redis = connect!
+      event[:date] = Time.new.asctime
+      event = event.to_json
+      redis.lpush "events_past", event
+    end
+
+    def self.delete_upcoming_event index
+      redis = connect!
+      redis.lset "events_upcoming", index, "XXXXX"
+      redis.lrem "events_upcoming", 1, "XXXXX"
+    end
+
+    def self.delete_past_event index
+      redis = connect!
+      redis.lset "events_past", index, "XXXXX"
+      redis.lrem "events_past", 1, "XXXXX"
+    end
+
   end
 end
